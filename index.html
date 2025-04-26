@@ -86,10 +86,14 @@
         return;
       }
 
-      // Detectar si estás en local o en Vercel
-      const apiBaseUrl = window.location.hostname.includes('localhost')
-        ? 'https://localhost:7238'
-        : 'https://backend-barberias-1.onrender.com';
+      // Detectar entorno (local o producción)
+      let apiBaseUrl = '';
+
+      if (window.location.hostname.includes('localhost')) {
+        apiBaseUrl = 'http://localhost:7238'; // ⚡ Local es HTTP
+      } else {
+        apiBaseUrl = 'https://backend-barberias-1.onrender.com'; // 🚀 Producción en Render
+      }
 
       try {
         const response = await fetch(`${apiBaseUrl}/api/Clientes/confirmar-correo?email=${encodeURIComponent(email)}`);
@@ -112,7 +116,6 @@
     }
 
     confirmarCorreo();
-</script>
-
+  </script>
 </body>
 </html>
