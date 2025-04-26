@@ -87,12 +87,12 @@
       }
   
       // ✅ Nueva detección correcta
-      let apiBaseUrl;
+ let apiBaseUrl;
 
 if (window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')) {
-  apiBaseUrl = 'http://localhost:7238';  // para pruebas en tu pc local
+  apiBaseUrl = 'http://localhost:7238';  // cuando estás en tu PC
 } else {
-  apiBaseUrl = 'http://localhost:7238';   // para producción
+  apiBaseUrl = 'https://backend-barberias-1.onrender.com'; // cuando estás en producción
 }
 
   
