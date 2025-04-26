@@ -78,29 +78,28 @@
     async function confirmarCorreo() {
       const params = new URLSearchParams(window.location.search);
       const email = params.get('email');
-
+  
       if (!email) {
         document.getElementById('mensaje').textContent = '❌ No se encontró el correo a confirmar.';
         document.getElementById('mensaje').className = 'error';
         document.getElementById('loader').style.display = 'none';
         return;
       }
-
-      // Detectar entorno (local o producción)
-      let apiBaseUrl = '';
-
-      if (window.location.hostname.includes('localhost')) {
-        apiBaseUrl = 'http://localhost:7238'; // ⚡ Local es HTTP
+  
+      // ✅ Nueva detección correcta
+      let apiBaseUrl;
+      if (window.location.href.startsWith('file://') || window.location.hostname.includes('localhost')) {
+        apiBaseUrl = 'http://localhost:7238';
       } else {
-        apiBaseUrl = 'https://backend-barberias-1.onrender.com'; // 🚀 Producción en Render
+        apiBaseUrl = 'https://backend-barberias-1.onrender.com';
       }
-
+  
       try {
         const response = await fetch(`${apiBaseUrl}/api/Clientes/confirmar-correo?email=${encodeURIComponent(email)}`);
         const text = await response.text();
-
+  
         document.getElementById('loader').style.display = 'none';
-
+  
         if (response.ok) {
           document.getElementById('mensaje').textContent = '✅ ¡Correo confirmado exitosamente!';
           document.getElementById('mensaje').className = 'success';
@@ -114,8 +113,9 @@
         document.getElementById('mensaje').className = 'error';
       }
     }
-
+  
     confirmarCorreo();
   </script>
+  
 </body>
 </html>
